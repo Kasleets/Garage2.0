@@ -1,5 +1,6 @@
 namespace Garage2._0
 {
+    // Initial test commit to github.
     public class Program
     {
         public static void Main(string[] args)
