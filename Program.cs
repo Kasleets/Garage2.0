@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Garage2._0.Data;
+using Garage2._0.Models.Entities;
+using Garage2._0.Services;
+
 namespace Garage2._0
 {
     // Initial test commit to github.
@@ -9,6 +15,8 @@ namespace Garage2._0
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
 
             var app = builder.Build();
 
