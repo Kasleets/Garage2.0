@@ -11,6 +11,7 @@ namespace Garage2._0.Models.Entities
 
         [Required]
         [MaxLength(10)]
+        [RegularExpression("^[A-Z0-9]*$", ErrorMessage = "Registration number should be uppercase alphanumeric.")]
         public string RegistrationNumber { get; set; }
 
         [Required]
