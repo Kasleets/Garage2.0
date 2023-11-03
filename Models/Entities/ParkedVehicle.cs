@@ -29,9 +29,6 @@ namespace Garage2._0.Models.Entities
 
         public DateTime ArrivalTime { get; set; }
 
-        public ParkedVehicle() 
-        { 
-           ArrivalTime = DateTime.Now; // Initialize arrivalTime with current date and time
-        }
+        public ParkedVehicle() => ArrivalTime = DateTime.Now;
     }
 }
