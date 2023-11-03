@@ -6,6 +6,6 @@
         Car,
         Motorcycle,
         Bus,
-        Truck,
+        Truck
     }
 }
