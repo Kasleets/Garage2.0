@@ -23,6 +23,7 @@ namespace Garage2._0.Models.Entities
         [Required]
         public string Model { get; set; }
 
+        // Double check before final submission if the int.MaxValue is good to keep
         [Range(0, int.MaxValue, ErrorMessage = "Number of wheels must be non-negative.")]
         public int NumberOfWheels { get; set; }
 
