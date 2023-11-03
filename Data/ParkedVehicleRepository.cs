@@ -6,8 +6,8 @@ namespace Garage2._0.Data
     {
         // Todo: Architecture placeholder. Repository. Implementation of the interface.
 
-        private readonly ApplicationDbContext _context;
-        public ParkedVehicleRepository(ApplicationDbContext context)
+        private readonly Garage2_0Context _context;
+        public ParkedVehicleRepository(Garage2_0Context context)
         {
             _context = context;
         }

@@ -14,6 +14,5 @@ namespace Garage2._0.Data
         void Remove(int id); // For the unpark button.
         void Update(ParkedVehicle vehicle); // For the edit button.
         void Search(string searchString); // For the search button.
-        
     }
 }
