@@ -7,7 +7,5 @@
         Motorcycle,
         Bus,
         Truck,
-        Boat,
-        Airplane
     }
 }
