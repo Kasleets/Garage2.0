@@ -1,9 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Garage2._0.Data;
-using Garage2._0.Models.Entities;
-using Garage2._0.Services;
-
 namespace Garage2._0
 {
     // Initial test commit to github.
@@ -15,10 +11,16 @@ namespace Garage2._0
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'TempGarageContext' not found.")));
 
+            builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
+
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
+            builder.Services.AddDbContext<Garage2_0Context>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2_0Context") ?? throw new InvalidOperationException("Connection string 'Garage2_0Context' not found.")));
+
+
 
             var app = builder.Build();
 
