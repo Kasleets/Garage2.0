@@ -1,5 +1,11 @@
+
+/*CSS Bootstrap from: https://sweetalert2.github.io/recipe-gallery/*/
+<link rel="stylesheet" href="sweetalert2.min.css" >
+
+
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
