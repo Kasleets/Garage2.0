@@ -16,7 +16,7 @@ namespace Garage2._0
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
+
 
             var app = builder.Build();
 
