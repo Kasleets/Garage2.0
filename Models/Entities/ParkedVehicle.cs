@@ -11,7 +11,6 @@ namespace Garage2._0.Models.Entities
 
         [Required]
         [MaxLength(10)]
-        [RegularExpression("^[A-Z0-9]*$", ErrorMessage = "Registration number should be uppercase alphanumeric.")]
         public string RegistrationNumber { get; set; }
 
         [Required]
@@ -27,5 +26,10 @@ namespace Garage2._0.Models.Entities
         public int NumberOfWheels { get; set; }
 
         public DateTime ArrivalTime { get; set; }
+
+        public ParkedVehicle() 
+        { 
+           ArrivalTime = DateTime.Now; // Initialize arrivalTime with current date and time
+        }
     }
 }

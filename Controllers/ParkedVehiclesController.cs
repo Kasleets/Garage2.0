@@ -14,7 +14,7 @@ namespace Garage2._0.Controllers
         {
             _context = context;
         }
-
+        
         public ActionResult Parking()
         {
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
@@ -30,9 +30,7 @@ namespace Garage2._0.Controllers
         {
             if(ModelState.IsValid)
             {
-                //Automatically set arrival time to current date and time
-                model.ArrivalTime = DateTime.Now;
-
+          
                 //Implementation for parking vehicle
                 _context.ParkedVehicles.Add(model);
                 await _context.SaveChangesAsync();
@@ -49,6 +47,7 @@ namespace Garage2._0.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Retrieving()
         {
             return View();
@@ -73,6 +72,7 @@ namespace Garage2._0.Controllers
             return RedirectToAction("Overview");
         }
 
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var vehicle = _context.ParkedVehicles.Find(id);
