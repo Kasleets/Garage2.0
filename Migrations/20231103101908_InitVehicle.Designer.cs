@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Garage2._0.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(Garage2_0Context))]
     [Migration("20231103101908_InitVehicle")]
     partial class InitVehicle
     {
