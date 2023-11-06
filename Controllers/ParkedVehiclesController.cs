@@ -1,20 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Garage2._0.Data;
 using Garage2._0.Models.Entities;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Garage2._0.Services; 
 
 namespace Garage2._0.Controllers
 {
     public class ParkedVehiclesController : Controller
     {
-        private readonly Garage2_0Context _context;
+        //Dependency injection of repository and service through constructor
+        private readonly IParkedVehicleRepository _repository;
+        private readonly IParkingService _service;
 
-        public ParkedVehiclesController(Garage2_0Context context)
+        public ParkedVehiclesController(IParkedVehicleRepository repository, IParkingService service)
         {
-            _context = context;
+            _repository = repository;
+            _service = service;
         }
-        
+
         public ActionResult Parking()
         {
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
@@ -25,19 +32,18 @@ namespace Garage2._0.Controllers
             ViewBag.VehicleTypes = new SelectList(vehicleTypes, "Value", "Text");
             return View();
         }
+
         [HttpPost]
-        public async Task<ActionResult> Parking(ParkedVehicle model)
+        public async Task<ActionResult> Parking(ParkedVehicle model) //Implements Add park vehicle
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-          
-                //Implementation for parking vehicle
-                _context.ParkedVehicles.Add(model);
-                await _context.SaveChangesAsync();
+                _service.ParkVehicle(model);//use service to park
 
                 TempData["Message"] = "Vehicle Parked successfully!";
                 return RedirectToAction("Overview");
             }
+
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
             {
                 Text = v.ToString(),
@@ -54,20 +60,18 @@ namespace Garage2._0.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Retrieving(string registrationNumber)
+        public async Task<ActionResult> Retrieving(string registrationNumber) //Implements Retrieve vehicle 
         {
-            var vehicle = await _context.ParkedVehicles.FirstOrDefaultAsync(v => v.RegistrationNumber == registrationNumber);
-            if(vehicle != null)
+            var vehicle = await _repository.GetByRegistrationNumberAsync(registrationNumber);
+            if (vehicle != null)
             {
-                _context.ParkedVehicles.Remove(vehicle);
-                await _context.SaveChangesAsync();
+                _service.UnparkVehicle(vehicle.Id);//use service to unpark
 
-                TempData["Message"] = "vehicle retrived successfuly!";
-
+                TempData["Message"] = "Vehicle retrieved successfully!";
             }
             else
             {
-                TempData["Message"] = "vehicle not found!";
+                TempData["Message"] = "Vehicle not found!";
             }
             return RedirectToAction("Overview");
         }
@@ -75,44 +79,43 @@ namespace Garage2._0.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var vehicle = _context.ParkedVehicles.Find(id);
+            var vehicle = _repository.GetById(id);
             return View(vehicle);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ParkedVehicle model)
+        public async Task<ActionResult> Edit(ParkedVehicle model) //Implements Update in vehicle
         {
-            var existingVehicle = await _context.ParkedVehicles.FindAsync(model.Id);
-            if (existingVehicle != null)
+            if (ModelState.IsValid)
             {
-                existingVehicle.VehicleType = model.VehicleType;
-                existingVehicle.Color = model.Color;
-                existingVehicle.Brand = model.Brand;
-                existingVehicle.Model = model.Model;
-                existingVehicle.NumberOfWheels = model.NumberOfWheels;
-                await _context.SaveChangesAsync();
+                var updated = _service.UpdateVehicle(model);
 
-                TempData["Message"] = "Vehicle edited successfully!";
-                return RedirectToAction("Overview");
+                if (updated != null)
+                {
+                    TempData["Message"] = "Vehicle edited successfully!";
+                    return RedirectToAction("Overview");
+                }
+                else
+                {
+                    TempData["Message"] = "Vehicle not found!";
+                    return View(model);
+                }
             }
-            else
-            {
-                TempData["Message"] = "Vehicle not found!";
-                return View(model);
-            }
+
+            return View(model);
         }
+
         [HttpPost]
-        public async Task<ActionResult> Overview(string sortOrder, string searchString)
+        public async Task<ActionResult> Overview(string sortOrder, string searchString) //Implements sort and search 
         {
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.TimeSortParam = sortOrder == "time" ? "time_desc" : "time";
 
-            var vehicles = from v in _context.ParkedVehicles
-                           select v;
+            var vehicles = _repository.GetAllParkedVehicles();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
+                vehicles = _repository.SearchVehicles(searchString);
             }
 
             switch (sortOrder)
@@ -130,11 +133,7 @@ namespace Garage2._0.Controllers
                     vehicles = vehicles.OrderBy(v => v.RegistrationNumber);
                     break;
             }
-
-            var vehiclesList = await vehicles.ToListAsync();
-
-            return View(vehiclesList);
+            return View(vehicles);
         }
-
     }
 }

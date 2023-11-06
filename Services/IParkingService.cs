@@ -1,12 +1,22 @@
-﻿namespace Garage2._0.Services
+﻿using Garage2._0.Models.Entities;
+
+namespace Garage2._0.Services
 {
-    public class IParkingService
+    public interface IParkingService
     {
-        // Todo: Architecture placeholder. Interface for the service.
-        // Business logic layer.
-        // The service is responsible for the business logic. 
-        // Calls the repository to get data. 
-        // Make sure that Presentation layer i.e. Controller and the Data layer i.e. Repository are not dependent on each other. 
-        // The service layer is responsible for the business logic of the application.
+        IEnumerable<ParkedVehicle> GetAllParkedVehicles();
+        ParkedVehicle GetParkedVehicleById(int id);
+        void ParkVehicle(ParkedVehicle vehicle);
+        void RetrieveVehicle(int id);   
+        void EditVehicle(ParkedVehicle vehicle);
+        IEnumerable<ParkedVehicle> Search(string searchString);
     }
 }
+
+
+/*
+Encapsulates business logic
+The service layer can call the repository methods to interact with the data layer (database).
+This structure ensures that the presentation layer (controllers) and the data layer (repositories) are not directly dependent on each other
+seperation of concern 
+ */
