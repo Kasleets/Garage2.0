@@ -8,6 +8,8 @@ namespace Garage2._0
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<Garage2_0Context>(options => 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2_0Context") ?? throw new InvalidOperationException("Connection string 'TempGarageContext' not found.")));
 
             builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
 
@@ -15,8 +17,8 @@ namespace Garage2._0
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<Garage2_0Context>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2_0Context") ?? throw new InvalidOperationException("Connection string 'Garage2_0Context' not found.")));
+            //builder.Services.AddDbContext<Garage2_0Context>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2_0Context") ?? throw new InvalidOperationException("Connection string 'Garage2_0Context' not found.")));
 
 
 
