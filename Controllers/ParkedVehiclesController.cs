@@ -67,12 +67,12 @@ namespace Garage2._0.Controllers
 
         public ActionResult Parking()
         {
-            var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            });
-            ViewBag.VehicleTypes = new SelectList(vehicleTypes, "Value", "Text");
+            //var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
+            //{
+            //    Text = v.ToString(),
+            //    Value = ((int)v).ToString()
+            //});
+            //ViewBag.VehicleTypes = new SelectList(vehicleTypes, "Value", "Text");
             return View();
         }
         [HttpPost]
@@ -192,7 +192,7 @@ namespace Garage2._0.Controllers
                 SearchString = searchString
             };
 
-            return View("Index", viewModel);
+            return View(viewModel);
         }
 
 
