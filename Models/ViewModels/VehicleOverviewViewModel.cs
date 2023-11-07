@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Garage2._0.Models.Entities;
 
-namespace Garage2._0.Models
+namespace Garage2._0.Models.ViewModels
 {
+#nullable disable
     public class VehicleOverviewViewModel // Updated to correct name to solve build error
     {
         public IEnumerable<ParkedVehicle> ParkedVehicles { get; set; }

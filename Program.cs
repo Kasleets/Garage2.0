@@ -41,7 +41,7 @@ namespace Garage2._0
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=ParkedVehicles}/{action=Home}/{id?}");// change defualt from home to parkedvehicles
 
             app.Run();
         }
