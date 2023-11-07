@@ -8,4 +8,8 @@
         Bus,
         Truck
     }
+    public class VehicleViewModel
+    {
+        public VehicleType SelectedVehicleType { get; set; }
+    }
 }
