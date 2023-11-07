@@ -2,6 +2,11 @@
 {
     public class VehicleOverviewViewModel
     {
-        // Todo: Architecture placeholder.
+
+            public IEnumerable<ParkedVehicle> Vehicles { get; set; }
+            public string SortOrder { get; set; }
+            public string SearchString { get; set; }
+        
     }
 }
+
