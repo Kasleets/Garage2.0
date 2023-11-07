@@ -104,13 +104,13 @@ namespace Garage2._0.Controllers
         [HttpPost]
         public async Task<ActionResult> Overview(string sortOrder, string searchString)
         {
-            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.TimeSortParam = sortOrder == "time" ? "time_desc" : "time";
 
             var vehicles = from v in _context.ParkedVehicles
                            select v;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
                 vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
             }
@@ -133,8 +133,16 @@ namespace Garage2._0.Controllers
 
             var vehiclesList = await vehicles.ToListAsync();
 
-            return View(vehiclesList);
+            var viewModel = new OverviewViewModel
+            {
+                ParkedVehicles = vehiclesList,
+                SortOrder = sortOrder,
+                SearchString = searchString
+            };
+
+            return View(viewModel);
         }
+
 
     }
 }
