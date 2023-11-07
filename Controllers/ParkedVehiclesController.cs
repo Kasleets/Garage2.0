@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Garage2._0.Data;
+using Garage2._0.Models; // Add missing using statement to resolve build error
 using Garage2._0.Models.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -30,7 +31,6 @@ namespace Garage2._0.Controllers
         {
             if(ModelState.IsValid)
             {
-          
                 //Implementation for parking vehicle
                 _context.ParkedVehicles.Add(model);
                 await _context.SaveChangesAsync();
@@ -80,16 +80,16 @@ namespace Garage2._0.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ParkedVehicle model)
+        public async Task<ActionResult> Edit(ParkedVehicle editedModel) // Renamed the parameter as it was same as Park method ( build error) 
         {
-            var existingVehicle = await _context.ParkedVehicles.FindAsync(model.Id);
+            var existingVehicle = await _context.ParkedVehicles.FindAsync(editedModel.Id);
             if (existingVehicle != null)
             {
-                existingVehicle.VehicleType = model.VehicleType;
-                existingVehicle.Color = model.Color;
-                existingVehicle.Brand = model.Brand;
-                existingVehicle.Model = model.Model;
-                existingVehicle.NumberOfWheels = model.NumberOfWheels;
+                existingVehicle.VehicleType = editedModel.VehicleType;
+                existingVehicle.Color = editedModel.Color;
+                existingVehicle.Brand = editedModel.Brand;
+                existingVehicle.Model = editedModel.Model;
+                existingVehicle.NumberOfWheels = editedModel.NumberOfWheels;
                 await _context.SaveChangesAsync();
 
                 TempData["Message"] = "Vehicle edited successfully!";
@@ -98,9 +98,10 @@ namespace Garage2._0.Controllers
             else
             {
                 TempData["Message"] = "Vehicle not found!";
-                return View(model);
+                return View(editedModel);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Overview(string sortOrder, string searchString)
         {
@@ -133,15 +134,18 @@ namespace Garage2._0.Controllers
 
             var vehiclesList = await vehicles.ToListAsync();
 
-            var viewModel = new OverviewViewModel
+            // Update the ViewModel class name to resolve build error
+            var viewModel = new VehicleOverviewViewModel
             {
                 ParkedVehicles = vehiclesList,
-                SortOrder = sortOrder,
+                NameSortParam = sortOrder,  
+                TimeSortParam = sortOrder == "time" ? "time_desc" : "time",  
                 SearchString = searchString
             };
 
             return View(viewModel);
         }
+
 
 
     }

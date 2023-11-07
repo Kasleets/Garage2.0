@@ -3,6 +3,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Garage Manager!</h1>
+    <p>Use the links below to navigate:</p>
+    <p>
+        <a asp-controller="ParkedVehicles" asp-action="Parking">Check-In</a>
+        |
+        <a asp-controller="ParkedVehicles" asp-action="Retrieving">Retrieve</a>
+        |
+        <a asp-controller="ParkedVehicles" asp-action="Overview">Go to Overview</a>
+    </p>
+
 </div>
