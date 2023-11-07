@@ -4,6 +4,8 @@ using Garage2._0.Data;
 using Garage2._0.Models; // Add missing using statement to resolve build error
 using Garage2._0.Models.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Garage2._0.Models.ViewModels;
+using System.Linq.Expressions;
 
 namespace Garage2._0.Controllers
 {
@@ -15,7 +17,54 @@ namespace Garage2._0.Controllers
         {
             _context = context;
         }
-        
+
+        // Add controller for Home
+        public IActionResult Home()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        // Add controller for Index
+        public async Task<IActionResult> Index()
+        {
+            var vehicles = await _context.ParkedVehicles.ToListAsync();
+
+            var model = new IndexViewModel
+            {
+                ParkedVehicles = vehicles,
+                VehicleTypes = GetVehicleType(vehicles)
+            };
+
+
+            return View(model);
+        }
+
+       // Add function to get vehicle type
+        private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
+        {
+          
+                return vehicles.Select(v => v.VehicleType)
+                                               .Distinct()
+                                               .Select(g => new SelectListItem
+                                               {
+                                                   Text = g.ToString(),
+                                                   Value = g.ToString()
+                                               })
+                                               .ToList();
+            
+        }
+
+        // Add controller for ParkVehicle
+        public IActionResult ParkVehicle()
+        {
+            return View();
+        }
+
+
+
+
+
         public ActionResult Parking()
         {
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
@@ -27,12 +76,12 @@ namespace Garage2._0.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> Parking(ParkedVehicle model)
+        public async Task<ActionResult> Parking(ParkedVehicle viewModel)// change model to viewModel because there is error.
         {
             if(ModelState.IsValid)
             {
                 //Implementation for parking vehicle
-                _context.ParkedVehicles.Add(model);
+                _context.ParkedVehicles.Add(viewModel);
                 await _context.SaveChangesAsync();
 
                 TempData["Message"] = "Vehicle Parked successfully!";
@@ -44,7 +93,7 @@ namespace Garage2._0.Controllers
                 Value = ((int)v).ToString()
             });
             ViewBag.VehicleTypes = new SelectList(vehicleTypes, "Value", "Text");
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -143,7 +192,7 @@ namespace Garage2._0.Controllers
                 SearchString = searchString
             };
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
 
