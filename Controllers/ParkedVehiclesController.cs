@@ -102,7 +102,7 @@ namespace Garage2._0.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> Overview(string sortOrder, string searchString)
         {
             ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
