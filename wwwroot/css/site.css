@@ -4,6 +4,19 @@
     }
 }
 
+/*
+    New color palette theme
+    background: #342009
+    text: #834702
+    interactive: #FB8804
+    highlight: #FEE2C3
+    highlight 2: #FEEEDC
+    highlight 3: #FFF8F0
+    off gray: #616161
+
+*/
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -16,7 +29,7 @@ html {
 
 h1 {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 40px;
+    font-size: calc(1.5rem + 2.5vw) !important;
 }
 
 p {
@@ -30,15 +43,16 @@ a {
 }
 
     a:link {
-        color: orange;
+        color: #FB8804;
     }
-
+/*
     a:visited {
-        color:darkorange;
+        color: #FB8804;
     }
+        */
 
 body {
-    background-color: #292929;
+    background-color: #342009;
     margin-bottom: 60px;
     font-size: 20px;
 }
@@ -61,13 +75,83 @@ div {
 }
 
 td {
-    color: white;
+    color: #1f1f1f;
 }
 
+/*
 .btn-orange {
-    color: orange;
+    color: #FB8804;
+}
+*/
+.btn-primary {
+    color: #fff;
+    background-color: #FB8804;
+    border-color: #616161;
 }
 
-/*.container {
-    background-color: blue;
-}*/
+.btn-secondary {
+    color: #FFF;
+    background-color: darkolivegreen;
+    border-color: #616161;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover {
+        color: #FFF8F0; /* This sets the text color on hover */
+        background-color: #616161; /* This sets the background color on hover if you need it */
+    }
+
+
+
+/* Override Bootstrap background opacity */
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: #FFF8F0 !important;
+}
+
+/* Custom Table Styles */
+.table {
+    --bs-table-bg: #342009; /* Your dark background color for non-striped rows */
+    --bs-table-accent-bg: #FFF8F0; /* Slightly lighter shade for accent */
+    --bs-table-striped-color: #834702; /* Text color for striped rows */
+    --bs-table-striped-bg: #FEE2C3; /* First striped row background */
+    --bs-table-active-color: #834702; /* Text color for active rows */
+    --bs-table-active-bg: #FEE2C3; /* Active row background */
+    --bs-table-hover-color: #834702; /* Text color for hover state */
+    --bs-table-hover-bg: #FFF8F0; /* Hover row background */
+    border-color: #834702; /* Border color to match the scheme */
+    border: 1px solid #834702; /* Border around the table */
+}
+
+    /* Additional style for the second stripe using a pseudo-class */
+    .table tr:nth-of-type(odd) {
+        --bs-table-accent-bg: #38230A; /* Second striped row background */
+    }
+
+    /* Style for table head */
+    .table thead {
+        background-color: #616161; /* Background color for the table header */
+        color: #FEE2C3; /* Text color for the table header */
+    }
+
+    /* Style for table foot, if you have one */
+    .table tfoot {
+        background-color: #616161; /* Background color for the table footer */
+        color: #FEE2C3; /* Text color for the table footer */
+    }
+
+
+
+
+/*
+    New color palette theme
+    background: #342009
+    text: #834702
+    interactive: #FB8804
+    highlight: #FEE2C3
+    highlight 2: #FEEEDC
+    highlight 3: #FFF8F0
+    off gray: #616161
+
+*/
