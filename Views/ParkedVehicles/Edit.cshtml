@@ -1,0 +1,59 @@
+﻿
+@model Garage2._0.Models.Entities.ParkedVehicle
+
+@{
+    ViewData["Title"] = "Edit Vehicle";
+}
+
+<h2>Edit Vehicle</h2>
+
+<form asp-action="Edit" asp-controller="ParkedVehicles" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="VehicleType"></label>
+        <select asp-for="VehicleType" class="form-control">
+            <option value="">Please select</option>
+            @foreach (var item in Enum.GetValues(typeof(Garage2._0.Models.Entities.VehicleType)))
+            {
+            <option value="@item">@item</option>
+            }
+        </select>
+        <span asp-validation-for="VehicleType" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RegistrationNumber"></label>
+        <input asp-for="RegistrationNumber" class="form-control" disabled/>
+        <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Color"></label>
+        <input asp-for="Color" class="form-control" />
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Brand"></label>
+        <input asp-for="Brand" class="form-control" />
+        <span asp-validation-for="Brand" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Model"></label>
+        <input asp-for="Model" class="form-control" />
+        <span asp-validation-for="Model" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumberOfWheels"></label>
+        <input asp-for="NumberOfWheels" class="form-control" />
+        <span asp-validation-for="NumberOfWheels" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Overview" asp-controller="ParkedVehicles" class="btn btn-secondary">Back to Overview</a>
+    </div>
+</form>
