@@ -103,23 +103,32 @@ namespace Garage2._0.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Retrieving(string registrationNumber)
+        public async Task<ActionResult> Retrieving(RetrievingViewModel viewModel)
         {
-            var vehicle = await _context.ParkedVehicles.FirstOrDefaultAsync(v => v.RegistrationNumber == registrationNumber);
-            if(vehicle != null)
+            if (ModelState.IsValid)// Check if there are any validation errors
             {
-                _context.ParkedVehicles.Remove(vehicle);
-                await _context.SaveChangesAsync();
+                // Retrieve the vehicle based on the registration number
+                var vehicle = await _context.ParkedVehicles.FirstOrDefaultAsync(v => v.RegistrationNumber == viewModel.RegistrationNumber);
 
-                TempData["Message"] = "vehicle retrived successfuly!";
+                if (vehicle != null)
+                {
+                    // Remove the vehicle from the database
+                    _context.ParkedVehicles.Remove(vehicle);
+                    await _context.SaveChangesAsync();
 
+                    TempData["Message"] = "Vehicle retrieved successfully!";
+
+                    return RedirectToAction("Overview");
+                }
+
+                // If vehicle is not found
+                ModelState.AddModelError("RegistrationNumber", "Vehicle not found.");
             }
-            else
-            {
-                TempData["Message"] = "vehicle not found!";
-            }
-            return RedirectToAction("Overview");
+
+            // If ModelState is not valid or if vehicle is not found, return the view with errors
+            return View("Retrieving", viewModel);
         }
+
 
         [HttpGet]
         public ActionResult Edit(int id)
