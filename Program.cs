@@ -11,7 +11,7 @@ namespace Garage2._0
             builder.Services.AddDbContext<Garage2_0Context>(options => 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Garage2_0Context") ?? throw new InvalidOperationException("Connection string 'TempGarageContext' not found.")));
 
-            builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
+            //builder.Services.AddScoped<IParkedVehicleRepository, ParkedVehicleRepository>();
 
 
             // Add services to the container.

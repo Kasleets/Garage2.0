@@ -6,6 +6,7 @@ using Garage2._0.Models.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Garage2._0.Models.ViewModels;
 using System.Linq.Expressions;
+using Newtonsoft.Json;
 
 namespace Garage2._0.Controllers
 {
@@ -113,21 +114,42 @@ namespace Garage2._0.Controllers
 
                 if (vehicle != null)
                 {
+
+                    // Receipt view
+                    var receiptInfo = new ReceiptViewModel
+                    {
+                        VehicleId = vehicle.Id,
+                        RegistrationNumber = vehicle.RegistrationNumber,
+                        ArrivalTime = vehicle.ArrivalTime,
+                        DepartureTime = DateTime.Now
+                    };
+
                     // Remove the vehicle from the database
                     _context.ParkedVehicles.Remove(vehicle);
                     await _context.SaveChangesAsync();
 
-                    TempData["Message"] = "Vehicle retrieved successfully!";
+                    // Store the receipt info in TempData
+                    TempData["Receipt"] = JsonConvert.SerializeObject(receiptInfo);
 
-                    return RedirectToAction("Overview");
+                    // Redirect to the Receipt action with the vehicle's ID
+                    return RedirectToAction("Receipt");
+
+                    //Commenting to add receipt question to the user //Kasleet
+                    // Added receipt question to the user //Kasleet
+                    //TempData["Message"] = "Vehicle retrieved successfully! Would you like a receipt?";
+
+                    //return RedirectToAction("Overview");
                 }
-
-                // If vehicle is not found
-                ModelState.AddModelError("RegistrationNumber", "Vehicle not found.");
+                else
+                {
+                    // If vehicle is not found
+                    ModelState.AddModelError("RegistrationNumber", "Vehicle not found.");
+                }
             }
 
             // If ModelState is not valid or if vehicle is not found, return the view with errors
-            return View("Retrieving", viewModel);
+            //return View("Retrieving", viewModel);
+            return View(viewModel);
         }
 
 
@@ -206,18 +228,20 @@ namespace Garage2._0.Controllers
         }
 
         [HttpGet]
-        public IActionResult Receipt(int id)
+        public IActionResult Receipt()
         {
-            // Todo: Add implementation for receipt, double check the ID gather.
-            var vehicle = _context.ParkedVehicles.Find(id);
-            if (vehicle == null)
+            if (TempData["Receipt"] is string receiptJson)
             {
-                // Todo: Add implementation for error handling, 'Not found' page is framework error 404
-                return NotFound();
+                var receiptInfo = JsonConvert.DeserializeObject<ReceiptViewModel>(receiptJson);
+                return View(receiptInfo);
             }
-            // Todo: Add implementation for receipt, create a separate website and display notification tied to retrieval.
-            return View(vehicle);
+            else
+            {
+                // Handle the case when TempData does not contain receipt information
+                return RedirectToAction("Error"); //Double check routing
+            }
         }
+
 
     }
 }

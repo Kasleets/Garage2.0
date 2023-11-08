@@ -1,0 +1,11 @@
+﻿@model Garage2._0.Models.ViewModels.ReceiptViewModel
+<!-- Display receipt details -->
+<div>
+    <p>Vehicle ID: @Model.VehicleId</p>
+    <p>Registration Number: @Model.RegistrationNumber</p>
+    <p>Arrival Time: @Model.ArrivalTime</p>
+    <p>Departure Time: @Model.DepartureTime</p>
+    <!-- Add any other receipt details here -->
+</div>
+
+<button onclick="window.print();">Print Receipt</button>

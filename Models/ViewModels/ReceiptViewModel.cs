@@ -2,6 +2,9 @@
 {
     public class ReceiptViewModel
     {
-        // Todo: Architecture placeholder.
+        public int VehicleId { get; set; }
+        public string RegistrationNumber { get; set; }
+        public DateTime ArrivalTime { get; set; }
+        public DateTime DepartureTime { get; set; }
     }
 }
