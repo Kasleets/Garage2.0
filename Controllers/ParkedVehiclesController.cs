@@ -18,48 +18,48 @@ namespace Garage2._0.Controllers
             _context = context;
         }
 
-        // Add controller for Home
-        public IActionResult Home()
-        {
-            return View();
-        }
+       // // Add controller for Home
+       // public IActionResult Home()
+       // {
+       //     return View();
+       // }
 
-        [HttpGet]
-        // Add controller for Index
-        public async Task<IActionResult> Index()
-        {
-            var vehicles = await _context.ParkedVehicles.ToListAsync();
+       // [HttpGet]
+       // // Add controller for Index
+       // public async Task<IActionResult> Index()
+       // {
+       //     var vehicles = await _context.ParkedVehicles.ToListAsync();
 
-            var model = new IndexViewModel
-            {
-                ParkedVehicles = vehicles,
-                VehicleTypes = GetVehicleType(vehicles)
-            };
+       //     var model = new IndexViewModel
+       //     {
+       //         ParkedVehicles = vehicles,
+       //         VehicleTypes = GetVehicleType(vehicles)
+       //     };
 
 
-            return View(model);
-        }
+       //     return View(model);
+       // }
 
-       // Add function to get vehicle type
-        private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
-        {
+       //// Add function to get vehicle type
+       // private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
+       // {
           
-                return vehicles.Select(v => v.VehicleType)
-                                               .Distinct()
-                                               .Select(g => new SelectListItem
-                                               {
-                                                   Text = g.ToString(),
-                                                   Value = g.ToString()
-                                               })
-                                               .ToList();
+       //         return vehicles.Select(v => v.VehicleType)
+       //                                        .Distinct()
+       //                                        .Select(g => new SelectListItem
+       //                                        {
+       //                                            Text = g.ToString(),
+       //                                            Value = g.ToString()
+       //                                        })
+       //                                        .ToList();
             
-        }
+       // }
 
-        // Add controller for ParkVehicle
-        public IActionResult ParkVehicle()
-        {
-            return View();
-        }
+       // // Add controller for ParkVehicle
+       // public IActionResult ParkVehicle()
+       // {
+       //     return View();
+       // }
 
 
 
