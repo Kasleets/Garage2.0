@@ -1,7 +1,11 @@
-﻿namespace Garage2._0.Models.ViewModels
+﻿using Garage2._0.Models.Entities;
+
+namespace Garage2._0.Models.ViewModels
 {
+#nullable disable
     public class VehicleDetailedViewModel
     {
-        // Todo: Architecture placeholder.
+        public ParkedVehicle Vehicle { get; set; }
+
     }
 }
