@@ -17,51 +17,51 @@ namespace Garage2._0.Controllers
         {
             _context = context;
         }
+        #region snippet_Index old bloat
+        // // Add controller for Home
+        // public IActionResult Home()
+        // {
+        //     return View();
+        // }
 
-       // // Add controller for Home
-       // public IActionResult Home()
-       // {
-       //     return View();
-       // }
+        // [HttpGet]
+        // // Add controller for Index
+        // public async Task<IActionResult> Index()
+        // {
+        //     var vehicles = await _context.ParkedVehicles.ToListAsync();
 
-       // [HttpGet]
-       // // Add controller for Index
-       // public async Task<IActionResult> Index()
-       // {
-       //     var vehicles = await _context.ParkedVehicles.ToListAsync();
-
-       //     var model = new IndexViewModel
-       //     {
-       //         ParkedVehicles = vehicles,
-       //         VehicleTypes = GetVehicleType(vehicles)
-       //     };
-
-
-       //     return View(model);
-       // }
-
-       //// Add function to get vehicle type
-       // private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
-       // {
-          
-       //         return vehicles.Select(v => v.VehicleType)
-       //                                        .Distinct()
-       //                                        .Select(g => new SelectListItem
-       //                                        {
-       //                                            Text = g.ToString(),
-       //                                            Value = g.ToString()
-       //                                        })
-       //                                        .ToList();
-            
-       // }
-
-       // // Add controller for ParkVehicle
-       // public IActionResult ParkVehicle()
-       // {
-       //     return View();
-       // }
+        //     var model = new IndexViewModel
+        //     {
+        //         ParkedVehicles = vehicles,
+        //         VehicleTypes = GetVehicleType(vehicles)
+        //     };
 
 
+        //     return View(model);
+        // }
+
+        //// Add function to get vehicle type
+        // private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
+        // {
+
+        //         return vehicles.Select(v => v.VehicleType)
+        //                                        .Distinct()
+        //                                        .Select(g => new SelectListItem
+        //                                        {
+        //                                            Text = g.ToString(),
+        //                                            Value = g.ToString()
+        //                                        })
+        //                                        .ToList();
+
+        // }
+
+        // // Add controller for ParkVehicle
+        // public IActionResult ParkVehicle()
+        // {
+        //     return View();
+        // }
+
+        #endregion
 
 
 
@@ -84,6 +84,7 @@ namespace Garage2._0.Controllers
                 _context.ParkedVehicles.Add(viewModel);
                 await _context.SaveChangesAsync();
 
+                // Todo: Display to the user that the vehicle was parked successfully. Right now it immediately jumps to overview.
                 TempData["Message"] = "Vehicle Parked successfully!";
                 return RedirectToAction("Overview");
             }
@@ -195,7 +196,19 @@ namespace Garage2._0.Controllers
             return View(viewModel);
         }
 
-
+        [HttpGet]
+        public IActionResult Receipt(int id)
+        {
+            // Todo: Add implementation for receipt, double check the ID gather.
+            var vehicle = _context.ParkedVehicles.Find(id);
+            if (vehicle == null)
+            {
+                // Todo: Add implementation for error handling, 'Not found' page is framework error 404
+                return NotFound();
+            }
+            // Todo: Add implementation for receipt, create a separate website and display notification tied to retrieval.
+            return View(vehicle);
+        }
 
     }
 }
