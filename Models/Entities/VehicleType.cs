@@ -8,6 +8,8 @@
         Bus,
         Truck
     }
+
+    // Note: redundant code?
     public class VehicleViewModel
     {
         public VehicleType SelectedVehicleType { get; set; }

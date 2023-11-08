@@ -100,11 +100,7 @@ namespace Garage2._0.Data
                     Model = "R730",
                     NumberOfWheels = 10
                 }
-
             );
         }
-
-
-
     }
 }

@@ -2,6 +2,7 @@
 {
     public class ReceiptViewModel
     {
+#nullable disable
         public int VehicleId { get; set; }
         public string RegistrationNumber { get; set; }
         public DateTime ArrivalTime { get; set; }

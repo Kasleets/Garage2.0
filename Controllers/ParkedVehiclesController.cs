@@ -19,66 +19,14 @@ namespace Garage2._0.Controllers
         {
             _context = context;
         }
-        #region snippet_Index old bloat
-        // // Add controller for Home
-        // public IActionResult Home()
-        // {
-        //     return View();
-        // }
-
-        // [HttpGet]
-        // // Add controller for Index
-        // public async Task<IActionResult> Index()
-        // {
-        //     var vehicles = await _context.ParkedVehicles.ToListAsync();
-
-        //     var model = new IndexViewModel
-        //     {
-        //         ParkedVehicles = vehicles,
-        //         VehicleTypes = GetVehicleType(vehicles)
-        //     };
-
-
-        //     return View(model);
-        // }
-
-        //// Add function to get vehicle type
-        // private static List<SelectListItem> GetVehicleType(List<ParkedVehicle> vehicles)
-        // {
-
-        //         return vehicles.Select(v => v.VehicleType)
-        //                                        .Distinct()
-        //                                        .Select(g => new SelectListItem
-        //                                        {
-        //                                            Text = g.ToString(),
-        //                                            Value = g.ToString()
-        //                                        })
-        //                                        .ToList();
-
-        // }
-
-        // // Add controller for ParkVehicle
-        // public IActionResult ParkVehicle()
-        // {
-        //     return View();
-        // }
-
-        #endregion
-
-
 
         public ActionResult Parking()
         {
-            //var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
-            //{
-            //    Text = v.ToString(),
-            //    Value = ((int)v).ToString()
-            //});
-            //ViewBag.VehicleTypes = new SelectList(vehicleTypes, "Value", "Text");
             return View();
         }
+
         [HttpPost]
-        public async Task<ActionResult> Parking(ParkedVehicle viewModel)// change model to viewModel because there is error.
+        public async Task<ActionResult> Parking(ParkedVehicle viewModel) // changed model to viewModel because there is error.
         {
             if(ModelState.IsValid)
             {
@@ -90,6 +38,7 @@ namespace Garage2._0.Controllers
                 TempData["Message"] = "Vehicle Parked successfully!";
                 return RedirectToAction("Overview");
             }
+
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
             {
                 Text = v.ToString(),
@@ -137,10 +86,8 @@ namespace Garage2._0.Controllers
                     // Redirect to the Receipt action with the vehicle's ID
                     return RedirectToAction("Receipt");
 
-                    //Commenting to add receipt question to the user //Kasleet
-                    // Added receipt question to the user //Kasleet
+                    //Method from before receipt
                     //TempData["Message"] = "Vehicle retrieved successfully! Would you like a receipt?";
-
                     //return RedirectToAction("Overview");
                 }
                 else
@@ -164,7 +111,7 @@ namespace Garage2._0.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(ParkedVehicle editedModel) // Renamed the parameter as it was same as Park method ( build error) 
+        public async Task<ActionResult> Edit(ParkedVehicle editedModel) // Renamed the parameter as it was same as Park method (build error) 
         {
             var existingVehicle = await _context.ParkedVehicles.FindAsync(editedModel.Id);
             if (existingVehicle != null)
@@ -226,12 +173,12 @@ namespace Garage2._0.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Details(int id)// Added Detail for Detail page
+        public async Task<ActionResult> Details(int id) // Added Detail for Detail page
         {
             var vehicle = await _context.ParkedVehicles.FindAsync(id);  
             if(vehicle == null)
             {
-                return NotFound();// Return 404 not found if vehicle is not found
+                return NotFound(); // Return 404 not found if vehicle is not found
             }
 
             var viewModel = new VehicleDetailedViewModel
@@ -256,7 +203,6 @@ namespace Garage2._0.Controllers
                 return RedirectToAction("Error"); //Double check routing
             }
         }
-
 
     }
 }
