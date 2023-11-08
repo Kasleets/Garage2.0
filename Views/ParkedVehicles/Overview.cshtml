@@ -8,11 +8,21 @@
 
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="Overview" asp-controller="ParkedVehicles" method="post" class="form-inline">
+        <form asp-action="Overview" asp-controller="ParkedVehicles" method="get" class="form-inline">
+            <label>Search:</label>
             <div class="form-group">
                 <input type="text" class="form-control" asp-for="SearchString" placeholder="Search by Registration Number">
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
+        </form>
+    </div>
+    <div class="col-md-6 text-right ">
+        <form asp-action="Overview" asp-controller="ParkedVehicles" method="get">
+            <label>Sort:</label>
+            <select asp-for="SortOrder" asp-items="Model.SortOrderItems" class="form-control">
+                <option>Please select</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Apply Sort</button>
         </form>
     </div>
 </div>
@@ -21,33 +31,32 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Overview" asp-route-sortOrder="@Model.NameSortParam">Registration Number</a>
+                Registration Number
             </th>
             <th>
-                <a asp-action="Overview" asp-route-sortOrder="@Model.TimeSortParam">Arrival Time</a>
+                Arrival Time
             </th>
-
-            <th>Details</th>
-            <th>Edit</th>
-            <th>Remove</th>
+            <th>
+                Details
+            </th>
+            <th>
+                Edit
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var vehicle in Model.ParkedVehicles)
         {
-        <tr>
-            <td>@vehicle.RegistrationNumber</td>
-            <td>@vehicle.ArrivalTime</td>
-            <td>
-                <a asp-action="Details" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Details</a>
-            </td>
-            <td>
-                <a asp-action="Edit" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Edit</a>
-            </td>
-            <td>
-                <a asp-action="Remove" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Remove</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@vehicle.RegistrationNumber</td>
+                <td>@vehicle.ArrivalTime</td>
+                <td>
+                    <a asp-action="Details" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Details</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Edit</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

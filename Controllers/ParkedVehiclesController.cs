@@ -154,42 +154,54 @@ namespace Garage2._0.Controllers
         [HttpGet]
         public async Task<ActionResult> Overview(string sortOrder, string searchString)
         {
-            ViewBag.NameSortParam = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.TimeSortParam = sortOrder == "time" ? "time_desc" : "time";
+            // Create the view model and populate sorting options
+            var viewModel = new VehicleOverviewViewModel
+            {
+                SearchString = searchString,
+                SortOrder = sortOrder,
+                SortOrderItems = new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Registration Number (Asc)", Value = "registration_asc" },
+            new SelectListItem { Text = "Registration Number (Desc)", Value = "registration_desc" },
+            new SelectListItem { Text = "Arrival Time (Asc)", Value = "time_asc" },
+            new SelectListItem { Text = "Arrival Time (Desc)", Value = "time_desc" }
+        }
+            };
 
-            var vehicles = from v in _context.ParkedVehicles
-                           select v;
+            // Query to retrieve data and apply sorting/search
+            var vehicles = from v in _context.ParkedVehicles select v;
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
             }
 
-            switch (sortOrder)
+            // Apply sorting based on the selected option
+            vehicles = viewModel.SortOrder switch
             {
-                case "name_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.RegistrationNumber);
-                    break;
-                case "time":
-                    vehicles = vehicles.OrderBy(v => v.ArrivalTime);
-                    break;
-                case "time_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.ArrivalTime);
-                    break;
-                default:
-                    vehicles = vehicles.OrderBy(v => v.RegistrationNumber);
-                    break;
+                "registration_desc" => vehicles.OrderByDescending(v => v.RegistrationNumber),
+                "time" => vehicles.OrderBy(v => v.ArrivalTime),
+                "time_desc" => vehicles.OrderByDescending(v => v.ArrivalTime),
+                _ => vehicles.OrderBy(v => v.RegistrationNumber), // Default sorting
+            };
+
+            viewModel.ParkedVehicles = await vehicles.ToListAsync();
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Details(int id)// Added Detail for Detail page
+        {
+            var vehicle = await _context.ParkedVehicles.FindAsync(id);  
+            if(vehicle == null)
+            {
+                return NotFound();// Return 404 not found if vehicle is not found
             }
 
-            var vehiclesList = await vehicles.ToListAsync();
-
-            // Update the ViewModel class name to resolve build error
-            var viewModel = new VehicleOverviewViewModel
+            var viewModel = new VehicleDetailedViewModel
             {
-                ParkedVehicles = vehiclesList,
-                NameSortParam = sortOrder,  
-                TimeSortParam = sortOrder == "time" ? "time_desc" : "time",  
-                SearchString = searchString
+                Vehicle = vehicle,
             };
 
             return View(viewModel);
