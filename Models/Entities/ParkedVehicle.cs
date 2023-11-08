@@ -10,10 +10,16 @@ namespace Garage2._0.Models.Entities
         [Required(ErrorMessage = "Vehicle type is required.")]
         public VehicleType VehicleType { get; set; }
 
+        // Added conversion to uppercase for registration number //Kasleet
+        private string _registrationNumber;
         [Required]
         [MaxLength(10)]
         [RegularExpression("^[A-Z0-9]*$", ErrorMessage = "Registration number should be uppercase alphanumeric.")]
-        public string RegistrationNumber { get; set; }
+        public string RegistrationNumber { 
+            
+            get => _registrationNumber; 
+            
+            set => _registrationNumber = value.ToUpper(); }
 
         [Required]
         public string Color { get; set; }
