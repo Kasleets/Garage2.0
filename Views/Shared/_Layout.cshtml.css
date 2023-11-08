@@ -11,6 +11,12 @@ a {
   color: #0077cc;
 }
 
+p {
+    font-family: Candara;
+    font-size: 18px;
+    color: white;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -26,6 +32,7 @@ a {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
