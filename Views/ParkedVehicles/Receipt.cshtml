@@ -14,7 +14,8 @@
         <dt>Parking Time: </dt>
         <dd>@Model.ParkingTime</dd>
     <!-- Add any other receipt details here -->
+    <!--Refreshing the page throws an Error 404, in future need to switch to Session ID instead of TempData-->
     </dl>
 </div>
 
-<button onclick="window.print();">Print Receipt</button>
+<button onclick="window.print();" class="btn btn-primary">Print</button>
