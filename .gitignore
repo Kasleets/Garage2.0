@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Data/IParkedVehicleRepository.cs
+/Data/ParkedVehicleRepository.cs
+/Services/ParkingService.cs
+/Services/IParkingService.cs
