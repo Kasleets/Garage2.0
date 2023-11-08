@@ -6,5 +6,6 @@
         public string RegistrationNumber { get; set; }
         public DateTime ArrivalTime { get; set; }
         public DateTime DepartureTime { get; set; }
+        public TimeSpan ParkingTime { get; set; }
     }
 }

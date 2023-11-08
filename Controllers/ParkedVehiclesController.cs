@@ -8,6 +8,7 @@ using Garage2._0.Models.ViewModels;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 
+
 namespace Garage2._0.Controllers
 {
     public class ParkedVehiclesController : Controller
@@ -121,7 +122,9 @@ namespace Garage2._0.Controllers
                         VehicleId = vehicle.Id,
                         RegistrationNumber = vehicle.RegistrationNumber,
                         ArrivalTime = vehicle.ArrivalTime,
-                        DepartureTime = DateTime.Now
+                        DepartureTime = DateTime.Now,
+                        // Todo: fix the rounding of the parking time
+                        ParkingTime = (DateTime.Now.Subtract(vehicle.ArrivalTime))
                     };
 
                     // Remove the vehicle from the database
