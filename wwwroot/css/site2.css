@@ -139,3 +139,19 @@ td {
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
 }
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px; /* Adjust the margin to match the height of your footer */
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    height: 60px; /* Set the height of your footer */
+}
