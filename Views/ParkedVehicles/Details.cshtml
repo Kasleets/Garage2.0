@@ -22,6 +22,8 @@
         <dd>@Model.Vehicle.Model</dd>
         <dt>Number of Wheels:</dt>
         <dd>@Model.Vehicle.NumberOfWheels</dd>
+        <dt>Total Parking time</dt>
+        <dd>@Model.GetFormattedParkingTime(Model.Vehicle)</dd>
     </dl>
 </div>
 

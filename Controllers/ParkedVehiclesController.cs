@@ -187,7 +187,8 @@ namespace Garage2._0.Controllers
 
             viewModel.ParkedVehicles = await vehicles.ToListAsync();
             viewModel.VehicleType = viewModel.ParkedVehicles.FirstOrDefault()?.VehicleType ?? default(VehicleType);
-            viewModel.TotalParkingTime = DateTime.Now - (viewModel.ParkedVehicles.FirstOrDefault()?.ArrivalTime ?? DateTime.Now);
+            //viewModel.TotalParkingTime = DateTime.Now - (viewModel.ParkedVehicles.FirstOrDefault()?.ArrivalTime ?? DateTime.Now);
+            viewModel.GetFormattedParkingTime(viewModel.ParkedVehicles.FirstOrDefault());
 
             return View(viewModel);
         }

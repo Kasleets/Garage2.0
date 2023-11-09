@@ -10,6 +10,20 @@
         public TimeSpan ParkingTime { get; set; }
 
         // Formatted parking time to display proper decimal places
-        public string FormattedParkingTime => $"{ParkingTime.Hours:D1} hours : {ParkingTime.Minutes:D2} minutes : {ParkingTime.Seconds:D2} seconds";
+        public string FormattedParkingTime 
+        { 
+            get 
+            { 
+                string formattedTime = string.Empty;
+                if (ParkingTime.Days > 0)
+                {
+                    formattedTime += $"{ParkingTime.Days:D1} days : {ParkingTime.Hours:D1} hours : {ParkingTime.Minutes:D2} minutes : {ParkingTime.Seconds:D2} seconds";
+                }
+
+                formattedTime += $"{ParkingTime.Hours:D1} hours : {ParkingTime.Minutes:D2} minutes : {ParkingTime.Seconds:D2} seconds";
+                
+                return formattedTime;
+            } 
+        }
     }
 }

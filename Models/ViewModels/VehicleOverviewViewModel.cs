@@ -18,6 +18,34 @@ namespace Garage2._0.Models.ViewModels
 
         public VehicleType VehicleType { get; set; }
 
-        public TimeSpan TotalParkingTime { get; set; }
+        //public TimeSpan TotalParkingTime { 
+        //    get
+        //    {
+        //        string totalFormattedTime = string.Empty;
+        //        if (TotalParkingTime.Days > 0)
+        //        {
+        //            totalFormattedTime += $"{TotalParkingTime.Days:D1} days : ";
+        //        }
+
+        //        totalFormattedTime += $"{TotalParkingTime.Hours:D1} hours : {TotalParkingTime.Minutes:D2} minutes : {TotalParkingTime.Seconds:D2} seconds";
+
+        //        return totalFormattedTime;
+        //    }
+
+        // Method to calculate and format the parking time for a single vehicle
+        public string GetFormattedParkingTime(ParkedVehicle vehicle)
+        {
+            var parkingTime = DateTime.Now - vehicle.ArrivalTime;
+            if (parkingTime.Days > 0)
+            {
+                return $"est. {parkingTime.Days:D1} days";
+            }
+            else
+            {
+                return $"est. {parkingTime.Hours:D1} hours";
+            }
+        }
+
+
     }
 }
