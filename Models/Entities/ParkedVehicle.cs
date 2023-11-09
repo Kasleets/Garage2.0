@@ -12,11 +12,11 @@ namespace Garage2._0.Models.Entities
         public VehicleType VehicleType { get; set; }
 
         //[Required]
-        //[MaxLength(10)]
-        //[RegularExpression("^[A-Z0-9]*$", ErrorMessage = "Registration number should be uppercase alphanumeric.")]
         [Display(Name = "Registration Number")]
         [Required(ErrorMessage = "Please enter a registration number.")]
-        [RegularExpression(@"^[A-Z]{3}\d{3}$", ErrorMessage = "Please enter a valid registration number with 3 uppercase letters and 3 numbers.")]
+        [MaxLength(10)]
+        [RegularExpression("^[A-Z0-9]*$")]
+        //[RegularExpression(@"^[A-Z]{3}\d{3}$", ErrorMessage = "Please enter a valid registration number with 3 uppercase letters and 3 numbers.")]
         public string RegistrationNumber { get; set; }
 
         [Required]
