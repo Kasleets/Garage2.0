@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Garage2._0.Models.Entities
 {
     public class ParkedVehicle
     {
 #nullable disable
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Vehicle type is required.")]
