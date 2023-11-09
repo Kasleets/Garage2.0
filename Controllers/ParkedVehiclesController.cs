@@ -155,17 +155,25 @@ namespace Garage2._0.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString));
+                vehicles = vehicles.Where(v => v.RegistrationNumber.Contains(searchString) || v.Brand.Contains(searchString));
             }
 
             // Apply sorting based on the selected option
-            vehicles = viewModel.SortOrder switch
+            switch (viewModel.SortOrder)
             {
-                "registration_desc" => vehicles.OrderByDescending(v => v.RegistrationNumber),
-                "time" => vehicles.OrderBy(v => v.ArrivalTime),
-                "time_desc" => vehicles.OrderByDescending(v => v.ArrivalTime),
-                _ => vehicles.OrderBy(v => v.RegistrationNumber), // Default sorting
-            };
+                case "registration_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.RegistrationNumber);
+                    break;
+                case "time":
+                    vehicles = vehicles.OrderBy(v => v.ArrivalTime);
+                    break;
+                case "time_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.ArrivalTime);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.ArrivalTime);
+                    break;
+            }
 
             viewModel.ParkedVehicles = await vehicles.ToListAsync();
 
