@@ -1,7 +1,17 @@
-﻿namespace Garage2._0.Models.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Garage2._0.Models.ViewModels
 {
     public class RetrievingViewModel
     {
-        public string? RegistrationNumber { get; set; }
+        private string? _registrationNumber;
+        [MaxLength(10)]
+        [RegularExpression("^[A-Z0-9]*$", ErrorMessage = "A valid registration number is required.")]
+        public string? RegistrationNumber
+        { 
+            get => _registrationNumber; 
+        
+            set => _registrationNumber = value?.ToUpper();
+        }
     }
 }
