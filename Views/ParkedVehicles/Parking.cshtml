@@ -27,18 +27,18 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Parking" method="post">
-            @Html.AntiForgeryToken()
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Parking" method="post" id="parkingForm">
+           @*  @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> *@
             <div class="form-group">
                 <label asp-for="VehicleType" class="control-label"></label>
                 <select asp-for="VehicleType" class="form-control"
-                        asp-items="@Html.GetEnumSelectList<VehicleType>()"></select>
+                        asp-items="@Html.GetEnumSelectList<VehicleType>()" id="VehicleType"> </select>
                 <span asp-validation-for="VehicleType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RegistrationNumber" class="control-label"></label>
-                <input asp-for="RegistrationNumber" class="form-control" />
+                <input asp-for="RegistrationNumber" class="form-control" id="RegistrationNumber" />
                 <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
             </div>
             <div class="form-group">

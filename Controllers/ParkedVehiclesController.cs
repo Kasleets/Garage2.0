@@ -80,12 +80,22 @@ namespace Garage2._0.Controllers
         {
             if(ModelState.IsValid)
             {
-                //Implementation for parking vehicle
-                _context.ParkedVehicles.Add(viewModel);
-                await _context.SaveChangesAsync();
+                // add validation to check if the registration number exist 
+                bool isUnique = !await _context.ParkedVehicles.AnyAsync(p => p.RegistrationNumber == viewModel.RegistrationNumber);
 
-                TempData["Message"] = "Vehicle Parked successfully!";
-                return RedirectToAction("Overview");
+                if (!isUnique)
+                {
+                    ModelState.AddModelError("RegistrationNumber", "This registration number is already in use.");
+                }
+                else
+                {
+                    //Implementation for parking vehicle
+                    _context.ParkedVehicles.Add(viewModel);
+                    await _context.SaveChangesAsync();
+
+                    //TempData["Message"] = "Vehicle Parked successfully!";
+                    return RedirectToAction("Overview");
+                }
             }
             var vehicleTypes = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>().Select(v => new SelectListItem
             {
@@ -115,8 +125,6 @@ namespace Garage2._0.Controllers
                     // Remove the vehicle from the database
                     _context.ParkedVehicles.Remove(vehicle);
                     await _context.SaveChangesAsync();
-
-                    TempData["Message"] = "Vehicle retrieved successfully!";
 
                     return RedirectToAction("Overview");
                 }
