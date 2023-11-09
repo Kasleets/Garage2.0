@@ -55,8 +55,15 @@ a {
     }
 
 /* Styling for the body element */
+/*
 body {
-    background-color: #091834; /* Dark background color */
+    background-color: #091834; 
+    margin-bottom: 60px;
+    font-size: 20px;
+}
+*/
+body {
+    background-color: #1f2b35; /* Dark background color */
     margin-bottom: 60px;
     font-size: 20px;
 }
@@ -112,9 +119,15 @@ td {
     }
 
 /* Overriding Bootstrap background opacity */
+/*
 .bg-white {
     --bs-bg-opacity: 1;
-    background-color: #F7E7D4 !important; /* Change background color for white backgrounds */
+    background-color: #F7E7D4 !important; 
+}
+*/
+.bg-white {
+    --bs-bg-opacity: 1;
+    background-color: #162029 !important; /* Change background color for white backgrounds */
 }
 
 /* Custom Table Styles */
@@ -128,13 +141,13 @@ td {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: #FB8604 !important;
+    color: white !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
-
+/*color: #FB8604 !important;*/
 .navbar-light, .navbar-brand {
-    color: #FB8604 !important;
+    color: white !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 
