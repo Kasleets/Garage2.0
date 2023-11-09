@@ -216,6 +216,9 @@ namespace Garage2._0.Controllers
             if (TempData["Receipt"] is string receiptJson)
             {
                 var receiptInfo = JsonConvert.DeserializeObject<ReceiptViewModel>(receiptJson);
+
+                receiptInfo.CostPerHour = 20;
+
                 return View(receiptInfo);
             }
             else

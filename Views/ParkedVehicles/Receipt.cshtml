@@ -13,9 +13,12 @@
         <dd>@Model.DepartureTime</dd>
         <dt>Parking Time: </dt>
         <dd>@Model.FormattedParkingTime</dd>
+        <dt>Total Cost: </dt>
+        <dd>@Model.FormattedTotalCost</dd>
     <!-- Add any other receipt details here -->
     <!--Refreshing the page throws an Error 404, in future need to switch to Session ID instead of TempData-->
     </dl>
 </div>
 
 <button onclick="window.print();" class="btn btn-primary">Print</button>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to Home</a>
