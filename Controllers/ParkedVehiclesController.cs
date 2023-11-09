@@ -72,9 +72,10 @@ namespace Garage2._0.Controllers
                         RegistrationNumber = vehicle.RegistrationNumber,
                         ArrivalTime = vehicle.ArrivalTime,
                         DepartureTime = DateTime.Now,
-                        // Todo: fix the rounding of the parking time
                         ParkingTime = (DateTime.Now.Subtract(vehicle.ArrivalTime))
                     };
+                    // Format the parking time
+                    receiptInfo.ParkingTime = TimeSpan.Parse(receiptInfo.ParkingTime.ToString("hh\\:mm\\:ss"));
 
                     // Remove the vehicle from the database
                     _context.ParkedVehicles.Remove(vehicle);
