@@ -15,5 +15,9 @@ namespace Garage2._0.Models.ViewModels
         public List<SelectListItem> SortOrderItems { get; set; }// List of sorting options as SelectListItem
 
         public string SearchString { get; set; }
+
+        public VehicleType VehicleType { get; set; }
+
+        public TimeSpan TotalParkingTime { get; set; }
     }
 }

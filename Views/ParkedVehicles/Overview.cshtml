@@ -37,6 +37,12 @@
                 Arrival Time
             </th>
             <th>
+                Vehicle Type
+            </th>
+            <th>
+                Total Parking Time
+            </th>
+            <th>
                 Details
             </th>
             <th>
@@ -50,6 +56,15 @@
             <tr>
                 <td>@vehicle.RegistrationNumber</td>
                 <td>@vehicle.ArrivalTime</td>
+                <td>@vehicle.VehicleType</td>
+                <td>
+                    @{
+                        var totalParkingTime = DateTime.Now - vehicle.ArrivalTime;
+                        var hours = (int)totalParkingTime.TotalHours;
+                        var minutes = totalParkingTime.Minutes;
+                        <text>@hours hours @minutes minutes</text>
+                    }
+                </td>
                 <td>
                     <a asp-action="Details" asp-controller="ParkedVehicles" asp-route-id="@vehicle.Id">Details</a>
                 </td>
